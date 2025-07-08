@@ -18,8 +18,15 @@ const USERNAME = process.env.STEAM_USERNAME;
 const PASSWORD = process.env.STEAM_PASSWORD;
 const SHARED_SECRET = process.env.STEAM_SHARED_SECRET;
 
-if (!STEAM_KEY || !USERNAME || !PASSWORD) {
-  console.error('Missing required environment variables.');
+const args = process.argv.slice(2);
+const PREVIEW = args.includes('--preview') || args.includes('-p');
+
+if (!STEAM_KEY) {
+  console.error('Missing STEAM_API_KEY environment variable.');
+  process.exit(1);
+}
+if (!PREVIEW && (!USERNAME || !PASSWORD)) {
+  console.error('Missing STEAM_USERNAME or STEAM_PASSWORD environment variable.');
   process.exit(1);
 }
 
@@ -127,7 +134,9 @@ function setProfileDescription(description) {
 async function main() {
   const avatar = await getRandomSteamAvatar();
   const description = generateDescription();
-  await setProfileDescription(description);
+  if (!PREVIEW) {
+    await setProfileDescription(description);
+  }
   console.log(JSON.stringify({ avatar, description }, null, 2));
 }
 
