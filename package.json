@@ -1,0 +1,19 @@
+{
+  "name": "random-steam-pfp-description-v2.0",
+  "version": "1.0.0",
+  "description": "Generate a random Steam avatar and profile description",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "steam-totp": "^2.1.2",
+    "steam-user": "^5.2.3",
+    "steamcommunity": "^3.48.8"
+  }
+}
